@@ -8,12 +8,13 @@
     <style>
         :root {
             --primary-color: #2c3e50;
-            --accent-color: #3498db;
+            --accent-color: #d35400;
             --text-color: #333;
-            --bg-color: #f4f7f6;
+            --bg-color: #f2ecde;
+            --card-bg: #fffdf7;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Be Vietnam Pro', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
@@ -23,51 +24,93 @@
         header {
             background-color: var(--primary-color);
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
+            background-image: linear-gradient(135deg, #2c3e50 0%, #000 100%);
         }
         header img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             margin-bottom: 1rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         nav {
             background: #fff;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             position: sticky;
             top: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
         }
         nav a {
             margin: 0 15px;
             text-decoration: none;
             color: var(--primary-color);
             font-weight: bold;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--accent-color);
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 2rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #d9cfb9;
         }
         h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
+            color: #58311b;
+            border-bottom: 3px solid var(--accent-color);
             padding-bottom: 0.5rem;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 800;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .feature-item {
+            background: #fff9ef;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #ece3cf;
+        }
+        .feature-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c86436;
+            font-size: 1.1rem;
         }
         .step {
             background: #eef7fd;
-            padding: 1rem;
-            border-left: 4px solid var(--accent-color);
-            margin-bottom: 1rem;
+            padding: 1.2rem;
+            border-left: 5px solid #3498db;
+            margin-bottom: 1.2rem;
+            border-radius: 0 8px 8px 0;
         }
+        .mobile-banner {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .mobile-text h3 { margin: 0; color: #fff; }
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             font-size: 0.9rem;
             color: #7f8c8d;
         }
@@ -75,74 +118,243 @@
             background: #f9f9f9;
             padding: 1.5rem;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 12px;
             font-size: 0.95rem;
         }
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+        .lang-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .lang-btn:hover { background: #f0f0f0; }
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .en-content { display: none; }
     </style>
 </head>
 <body>
 
 <header>
     <img src="logo.png" alt="PayViewer Logo">
-    <h1>PayViewer</h1>
-    <p>Ứng dụng theo dõi biến động số dư ngân hàng qua SePay cho Windows</p>
+    <h1 id="header-title">PayViewer</h1>
+    <p id="header-sub">Giải pháp theo dõi giao dịch ngân hàng & Tiện ích hệ thống toàn diện cho Windows</p>
 </header>
 
-<nav>
-    <a href="#intro">Giới thiệu</a>
-    <a href="#guide">Hướng dẫn</a>
-    <a href="#privacy">Bảo mật</a>
-    <a href="#support">Hỗ trợ</a>
+<nav id="main-nav">
+    <a href="#intro" data-vi="Giới thiệu" data-en="Introduction">Giới thiệu</a>
+    <a href="#features" data-vi="Tính năng" data-en="Features">Tính năng</a>
+    <a href="#guide" data-vi="Hướng dẫn" data-en="Guide">Hướng dẫn</a>
+    <a href="#privacy" data-vi="Bảo mật" data-en="Privacy">Bảo mật</a>
+    <a href="#support" data-vi="Hỗ trợ" data-en="Support">Hỗ trợ</a>
 </nav>
 
 <div class="container">
-    <section id="intro">
-        <h2>Giới thiệu</h2>
-        <p><strong>PayViewer</strong> là một ứng dụng dành riêng cho hệ điều hành Windows, giúp bạn theo dõi lịch sử giao dịch ngân hàng một cách nhanh chóng và tiện lợi thông qua API của SePay. Ứng dụng hoạt động độc lập, không cần phần cứng bổ sung (như ESP32), phù hợp cho các cửa hàng, cá nhân muốn quản lý dòng tiền ngay trên máy tính.</p>
-    </section>
+    <div class="lang-switch">
+        <button id="btn-vi" class="lang-btn active" onclick="switchLang('vi')">Tiếng Việt</button>
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English</button>
+    </div>
 
-    <section id="guide">
-        <h2>Hướng dẫn sử dụng</h2>
-        <div class="step">
-            <strong>Bước 1: Lấy API Token</strong><br>
-            Truy cập vào trang quản trị SePay, vào mục <em>Cài đặt API</em> để tạo một mã Token mới.
-        </div>
-        <div class="step">
-            <strong>Bước 2: Cấu hình PayViewer</strong><br>
-            Mở ứng dụng, nhập <em>Số tài khoản</em> và <em>API Token</em> đã lấy ở Bước 1 vào mục cài đặt. Nhấn <strong>Lưu</strong>.
-        </div>
-        <div class="step">
-            <strong>Bước 3: Theo dõi giao dịch</strong><br>
-            Nhấn <strong>Làm mới</strong> để bắt đầu nhận dữ liệu. Bạn có thể bật tính năng <em>Đọc giao dịch (Ting Ting)</em> để nhận thông báo âm thanh khi có tiền về.
-        </div>
-    </section>
+    <!-- VIETNAMESE CONTENT -->
+    <div id="vi-content">
+        <section id="intro">
+            <h2>Giới thiệu</h2>
+            <p><strong>PayViewer</strong> là ứng dụng mã nguồn mở mạnh mẽ dành cho Windows, được thiết kế để giúp các chủ cửa hàng, cá nhân kinh doanh và người dùng công nghệ quản lý dòng tiền SePay một cách chuyên nghiệp nhất. Không chỉ là một trình theo dõi giao dịch, PayViewer còn là một trung tâm tiện ích giúp bạn theo dõi sức khỏe máy tính và quản lý thời gian hiệu quả.</p>
 
-    <section id="privacy">
-        <h2>Chính sách Bảo mật (Privacy Policy)</h2>
-        <div class="privacy-box">
-            <p>Chúng tôi cam kết bảo vệ quyền riêng tư của bạn. PayViewer hoạt động theo các nguyên tắc sau:</p>
-            <ul>
-                <li><strong>Dữ liệu API:</strong> Mã API Token và số tài khoản của bạn được lưu trữ <strong>cục bộ</strong> trên máy tính cá nhân của bạn (trong file <code>pay_viewer.json</code>). Chúng tôi không gửi dữ liệu này về bất kỳ máy chủ nào khác ngoài SePay.</li>
-                <li><strong>Dữ liệu giao dịch:</strong> Thông tin giao dịch được tải trực tiếp từ SePay về ứng dụng của bạn và chỉ hiển thị trên màn hình. Chúng tôi không thu thập, lưu trữ hay chia sẻ lịch sử giao dịch của bạn.</li>
-                <li><strong>Quyền hạn:</strong> Ứng dụng chỉ yêu cầu quyền truy cập Internet để kết nối với API SePay và quyền ghi file cục bộ để lưu cấu hình ứng dụng.</li>
-            </ul>
-        </div>
-    </section>
+            <div class="mobile-banner">
+                <div class="mobile-text">
+                    <h3>📱 Đã có phiên bản di động!</h3>
+                    <p>PayViewer hiện đã có mặt trên nền tảng Android, giúp bạn theo dõi biến động số dư mọi lúc mọi nơi, đồng bộ trải nghiệm từ máy tính đến điện thoại.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>Tính năng nổi bật</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <strong>Theo dõi SePay thời gian thực</strong>
+                    Tự động cập nhật biến động số dư từ tài khoản ngân hàng thông qua SePay API với độ trễ cực thấp.
+                </div>
+                <div class="feature-item">
+                    <strong>Thông báo bằng giọng nói</strong>
+                    Sử dụng công nghệ Text-to-Speech để đọc to số tiền và nội dung khi có giao dịch mới (Ting Ting).
+                </div>
+                <div class="feature-item">
+                    <strong>Giám sát nhiệt độ CPU/GPU</strong>
+                    Theo dõi trực quan nhiệt độ phần cứng với biểu đồ sóng thời gian thực, giúp bảo vệ máy tính của bạn.
+                </div>
+                <div class="feature-item">
+                    <strong>Lịch Âm Dương & Ghi chú</strong>
+                    Tra cứu lịch âm chi tiết, tạo ghi chú nhắc nhở công việc định kỳ ngay trên giao diện ứng dụng.
+                </div>
+                <div class="feature-item">
+                    <strong>Thông báo Telegram & Discord</strong>
+                    Gửi thông báo giao dịch về nhóm Telegram hoặc kênh Discord để bạn theo dõi từ xa mọi lúc mọi nơi.
+                </div>
+                <div class="feature-item">
+                    <strong>Quản lý dữ liệu tập trung</strong>
+                    Toàn bộ cấu hình và lịch sử được lưu an toàn trong thư mục Documents, dễ dàng sao lưu và khôi phục.
+                </div>
+            </div>
+        </section>
+
+        <section id="guide">
+            <h2>Hướng dẫn nhanh</h2>
+            <div class="step">
+                <strong>1. Kết nối API:</strong> Đăng ký tài khoản tại <a href="https://sepay.vn/" target="_blank">sepay.vn</a>. Nhập số tài khoản và mã API Token từ trang quản trị SePay vào phần "Thiết lập" của ứng dụng.
+            </div>
+            <div class="step">
+                <strong>2. Tùy chỉnh:</strong> Bật "Khởi động cùng Windows" và "Thu nhỏ vào khay hệ thống" để app luôn chạy ngầm và bảo vệ máy tính.
+            </div>
+            <div class="step">
+                <strong>3. Trải nghiệm:</strong> Tận hưởng đồ thị nhiệt độ và âm thanh thông báo "Ting Ting" mỗi khi có giao dịch mới.
+            </div>
+            <div class="step">
+                <strong>4. Kết nối Telegram & Discord:</strong> Lấy mã Token từ BotFather (Telegram) hoặc Webhook URL (Discord) điền vào cài đặt để nhận thông báo từ xa.
+            </div>
+        </section>
+
+        <section id="privacy">
+            <h2>Chính sách Bảo mật</h2>
+            <div class="privacy-box">
+                <ul>
+                    <li><strong>Lưu trữ cục bộ:</strong> Mọi thông tin nhạy cảm (Token, Số tài khoản) chỉ được lưu trên máy của bạn.</li>
+                    <li><strong>Không thu thập dữ liệu:</strong> Chúng tôi tuyệt đối không gửi bất kỳ dữ liệu giao dịch nào về máy chủ bên thứ ba.</li>
+                    <li><strong>Minh bạch:</strong> Ứng dụng chỉ kết nối trực tiếp đến SePay API chính thức.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- ENGLISH CONTENT (For MS Store Reviewers) -->
+    <div id="en-content" class="en-content">
+        <section id="intro-en">
+            <h2>About PayViewer</h2>
+            <p><strong>PayViewer</strong> is a comprehensive Windows application designed for business owners and power users to monitor SePay bank transactions alongside system health metrics. It provides a seamless experience for tracking cash flow without the need for additional hardware.</p>
+
+            <div class="mobile-banner">
+                <div class="mobile-text">
+                    <h3>📱 Mobile Version Available!</h3>
+                    <p>PayViewer is also available on Android, allowing you to monitor your transactions on-the-go with a consistent experience across all your devices.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features-en">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <strong>Real-time Bank Tracking</strong>
+                    Monitor bank account changes via SePay API with customizable refresh intervals.
+                </div>
+                <div class="feature-item">
+                    <strong>TTS Voice Alerts</strong>
+                    Automatically announces incoming payment details using high-quality Text-to-Speech technology.
+                </div>
+                <div class="feature-item">
+                    <strong>System Health Monitor</strong>
+                    Real-time CPU and GPU temperature tracking with interactive historical charts.
+                </div>
+                <div class="feature-item">
+                    <strong>Lunar Calendar & Tasks</strong>
+                    Integrated Vietnamese Lunar Calendar with a built-in reminder and task scheduling system.
+                </div>
+                <div class="feature-item">
+                    <strong>Remote Notifications</strong>
+                    Sync transactions to Telegram groups or Discord channels using secure webhooks.
+                </div>
+                <div class="feature-item">
+                    <strong>Smart Data Management</strong>
+                    Unified storage in the User's Documents folder with built-in backup/restore capabilities.
+                </div>
+            </div>
+        </section>
+
+        <section id="guide-en">
+            <h2>Quick Start</h2>
+            <div class="step">
+                <strong>1. API Connection:</strong> Sign up at <a href="https://sepay.vn/" target="_blank">sepay.vn</a>. Enter your account number and API Token from SePay dashboard into application "Settings".
+            </div>
+            <div class="step">
+                <strong>2. Customization:</strong> Enable "Start with Windows" and "Minimize to System Tray" for seamless background operation.
+            </div>
+            <div class="step">
+                <strong>3. Experience:</strong> Enjoy live temperature monitoring and voice alerts whenever a payment is received.
+            </div>
+            <div class="step">
+                <strong>4. Telegram & Discord:</strong> Add your Telegram Bot Token or Discord Webhook URL in settings to stay updated on-the-go.
+            </div>
+        </section>
+
+        <section id="privacy-en">
+            <h2>Privacy Commitment</h2>
+            <div class="privacy-box">
+                <p>PayViewer is designed with a "Local First" approach. All API credentials and transaction logs are stored exclusively on your local machine. No data is shared with or collected by the developers.</p>
+            </div>
+        </section>
+    </div>
 
     <section id="support">
-        <h2>Hỗ trợ & Liên hệ</h2>
-        <p>Nếu bạn gặp bất kỳ vấn đề nào trong quá trình sử dụng hoặc có yêu cầu tính năng mới, vui lòng liên hệ:</p>
+        <h2 id="support-title">Hỗ trợ & Liên hệ</h2>
+        <p id="support-sub">Nếu bạn gặp bất kỳ vấn đề nào, vui lòng liên hệ:</p>
         <ul>
-            <li><strong>Nhà phát triển:</strong> CHOMTV</li>
-            <li><strong>Email:</strong>h3r2015@gmail.com</li>
+            <li><strong>Developer:</strong> CHOMTV</li>
+            <li><strong>Email:</strong> h3r2015@gmail.com</li>
             <li><strong>GitHub:</strong> <a href="https://github.com/ycancook/PayViewer" target="_blank">PayViewer Project</a></li>
         </ul>
     </section>
 </div>
 
 <footer>
-    &copy; 2026 PayViewer by CHOMTV. Sản phẩm không thuộc sở hữu của SePay.
+    <span id="footer-text">&copy; 2026 PayViewer by CHOMTV. All rights reserved.</span>
 </footer>
+
+<script>
+    function switchLang(lang) {
+        const isVi = lang === 'vi';
+
+        // Show/Hide Content
+        document.getElementById('vi-content').style.display = isVi ? 'block' : 'none';
+        document.getElementById('en-content').style.display = isVi ? 'none' : 'block';
+
+        // Update Buttons
+        document.getElementById('btn-vi').classList.toggle('active', isVi);
+        document.getElementById('btn-en').classList.toggle('active', !isVi);
+
+        // Update Header
+        document.getElementById('header-sub').textContent = isVi
+            ? 'Giải pháp theo dõi giao dịch ngân hàng & Tiện ích hệ thống toàn diện cho Windows'
+            : 'Comprehensive Bank Transaction Monitor & System Utility for Windows';
+
+        // Update Nav
+        document.querySelectorAll('#main-nav a').forEach(a => {
+            a.textContent = a.getAttribute('data-' + lang);
+        });
+
+        // Update Support Section
+        document.getElementById('support-title').textContent = isVi ? 'Hỗ trợ & Liên hệ' : 'Support & Contact';
+        document.getElementById('support-sub').textContent = isVi
+            ? 'Nếu bạn gặp bất kỳ vấn đề nào, vui lòng liên hệ:'
+            : 'For any inquiries or issues, please contact:';
+
+        // Update Footer
+        document.getElementById('footer-text').innerHTML = isVi
+            ? '&copy; 2026 PayViewer bởi CHOMTV. Bảo lưu mọi quyền.'
+            : '&copy; 2026 PayViewer by CHOMTV. All rights reserved.';
+    }
+</script>
 
 </body>
 </html>
