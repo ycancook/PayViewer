@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayViewer - Hướng dẫn & Chính sách Bảo mật</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        header img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+        nav {
+            background: #fff;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        .step {
+            background: #eef7fd;
+            padding: 1rem;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        .privacy-box {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="PayViewer Logo">
+    <h1>PayViewer</h1>
+    <p>Ứng dụng theo dõi biến động số dư ngân hàng qua SePay cho Windows</p>
+</header>
+
+<nav>
+    <a href="#intro">Giới thiệu</a>
+    <a href="#guide">Hướng dẫn</a>
+    <a href="#privacy">Bảo mật</a>
+    <a href="#support">Hỗ trợ</a>
+</nav>
+
+<div class="container">
+    <section id="intro">
+        <h2>Giới thiệu</h2>
+        <p><strong>PayViewer</strong> là một ứng dụng dành riêng cho hệ điều hành Windows, giúp bạn theo dõi lịch sử giao dịch ngân hàng một cách nhanh chóng và tiện lợi thông qua API của SePay. Ứng dụng hoạt động độc lập, không cần phần cứng bổ sung (như ESP32), phù hợp cho các cửa hàng, cá nhân muốn quản lý dòng tiền ngay trên máy tính.</p>
+    </section>
+
+    <section id="guide">
+        <h2>Hướng dẫn sử dụng</h2>
+        <div class="step">
+            <strong>Bước 1: Lấy API Token</strong><br>
+            Truy cập vào trang quản trị SePay, vào mục <em>Cài đặt API</em> để tạo một mã Token mới.
+        </div>
+        <div class="step">
+            <strong>Bước 2: Cấu hình PayViewer</strong><br>
+            Mở ứng dụng, nhập <em>Số tài khoản</em> và <em>API Token</em> đã lấy ở Bước 1 vào mục cài đặt. Nhấn <strong>Lưu</strong>.
+        </div>
+        <div class="step">
+            <strong>Bước 3: Theo dõi giao dịch</strong><br>
+            Nhấn <strong>Làm mới</strong> để bắt đầu nhận dữ liệu. Bạn có thể bật tính năng <em>Đọc giao dịch (Ting Ting)</em> để nhận thông báo âm thanh khi có tiền về.
+        </div>
+    </section>
+
+    <section id="privacy">
+        <h2>Chính sách Bảo mật (Privacy Policy)</h2>
+        <div class="privacy-box">
+            <p>Chúng tôi cam kết bảo vệ quyền riêng tư của bạn. PayViewer hoạt động theo các nguyên tắc sau:</p>
+            <ul>
+                <li><strong>Dữ liệu API:</strong> Mã API Token và số tài khoản của bạn được lưu trữ <strong>cục bộ</strong> trên máy tính cá nhân của bạn (trong file <code>pay_viewer.json</code>). Chúng tôi không gửi dữ liệu này về bất kỳ máy chủ nào khác ngoài SePay.</li>
+                <li><strong>Dữ liệu giao dịch:</strong> Thông tin giao dịch được tải trực tiếp từ SePay về ứng dụng của bạn và chỉ hiển thị trên màn hình. Chúng tôi không thu thập, lưu trữ hay chia sẻ lịch sử giao dịch của bạn.</li>
+                <li><strong>Quyền hạn:</strong> Ứng dụng chỉ yêu cầu quyền truy cập Internet để kết nối với API SePay và quyền ghi file cục bộ để lưu cấu hình ứng dụng.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="support">
+        <h2>Hỗ trợ & Liên hệ</h2>
+        <p>Nếu bạn gặp bất kỳ vấn đề nào trong quá trình sử dụng hoặc có yêu cầu tính năng mới, vui lòng liên hệ:</p>
+        <ul>
+            <li><strong>Nhà phát triển:</strong> CHOMTV</li>
+            <li><strong>Email:</strong> support@chomtv.example.com (Thay bằng email của bạn)</li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/your-username/PayViewer" target="_blank">PayViewer Project</a></li>
+        </ul>
+    </section>
+</div>
+
+<footer>
+    &copy; 2026 PayViewer by CHOMTV. Sản phẩm không thuộc sở hữu của SePay.
+</footer>
+
+</body>
+</html>
